@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace UnityStandardAssets.Characters.ThirdPerson
 {
@@ -14,8 +15,8 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 		[SerializeField] float m_RunCycleLegOffset = 0.2f; //specific to the character in sample assets, will need to be modified to work with others
 		[SerializeField] float m_MoveSpeedMultiplier = 1f;
 		[SerializeField] float m_AnimSpeedMultiplier = 1f;
-		[SerializeField] float m_JumpMoveSpeedMultiplier = 1f;
 		[SerializeField] float m_GroundCheckDistance = 0.1f;
+		[SerializeField] List<GameObject> refChangeStateReceiverList;
 
 		Rigidbody m_Rigidbody;
 		Animator m_Animator;
@@ -77,6 +78,39 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 			UpdateAnimator(move);
 		}
 
+		public void StartCastState()
+		{
+			m_Animator.SetTrigger("OnStartCastState");
+			m_Animator.SetBool("Fishing", true);
+			ChangeState(MessageConstants.ChangeCastState);
+		}
+
+		public void StartMovementState()
+		{
+			m_Animator.SetTrigger("OnStartMovementState");
+			m_Animator.SetBool("Fishing", false);
+			ChangeState(MessageConstants.ChangeMovementState);
+		}
+
+		public void StartCastingState()
+		{
+			m_Animator.SetTrigger("OnStartCastingState");
+			ChangeState(MessageConstants.ChangeCastingState);
+		}
+
+		public void StartFishingState()
+		{
+			m_Animator.SetTrigger("OnStartFishingState");
+			ChangeState(MessageConstants.ChangeFishingState);
+		}
+
+		private void ChangeState(string changeStateMessage)
+		{
+			this.refChangeStateReceiverList.ForEach( g =>
+			{
+				g.BroadcastMessage(changeStateMessage);
+			});
+		}
 
 		void ScaleCapsuleForCrouching(bool crouch)
 		{
@@ -190,7 +224,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 		{
 			// we implement this function to override the default root motion.
 			// this allows us to modify the positional speed before it's applied.
-			if (Time.deltaTime > 0)
+			if (Time.deltaTime > 0 && !m_Animator.GetBool("Fishing"))
 			{
 				var forward = m_Animator.GetFloat("Forward");
 				Vector3 v = transform.forward * (forward * m_MoveSpeedMultiplier) / Time.deltaTime;
