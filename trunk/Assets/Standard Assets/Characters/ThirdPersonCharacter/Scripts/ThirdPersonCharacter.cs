@@ -78,6 +78,12 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 			UpdateAnimator(move);
 		}
 
+		public void Fishing(float direction, float wind)
+		{
+			m_Animator.SetFloat("FishingDirection", direction);
+			m_Animator.SetFloat("WindReel", wind);
+		}
+
 		public void StartCastState()
 		{
 			m_Animator.SetTrigger("OnStartCastState");

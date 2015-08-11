@@ -31,7 +31,7 @@ public class CastPlayerControl : PlayerControlBase
 	void FixedUpdate()
 	{
 		float h = 0.0f;
-		float v = 0.0f;
+		float v = 1.0f;
 
 		// calculate camera relative direction to move:
 		this.cameraForward = Vector3.Scale(refCamera.forward, new Vector3(1, 0, 1)).normalized;
