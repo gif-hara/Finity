@@ -7,6 +7,9 @@ using System.Collections.Generic;
 public class Reel : MonoBehaviour
 {
 	[SerializeField]
+	private Transform refCharacter;
+
+	[SerializeField]
 	private Transform refRod;
 
 	[SerializeField]
@@ -16,42 +19,25 @@ public class Reel : MonoBehaviour
 	private Line prefabLine;
 
 	[SerializeField]
-	private GameObject prefabBait;
+	private float force;
 
 	private Bait bait;
 
-	private List<Line> lines = new List<Line>();
+	private Line line;
 
 	// Update is called once per frame
 	void Update ()
 	{
-		if(Input.GetKey(KeyCode.Alpha1))
-		{
-			this.CreateLine();
-		}
 	}
 
 	public void Initialize(Bait bait)
 	{
 		this.bait = bait;
-		this.CreateLine();
 	}
 
-	private void CreateLine()
+	void OnChangeFishingState()
 	{
-		var instance = Instantiate(this.prefabLine);
-
-		if(this.lines.Count <= 0)
-		{
-			instance.ToRoot(refRodTipPoint);
-		}
-		else
-		{
-			instance.Connect(this.lines[this.lines.Count - 1]);
-		}
-
-		this.bait.Connect(instance);
-		this.lines.Add(instance);
+		this.bait.transform.position = refRodTipPoint.position;
+		this.bait.Cast((refCharacter.forward + refCharacter.up).normalized, this.force);
 	}
-
 }

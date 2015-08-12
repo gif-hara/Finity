@@ -14,8 +14,12 @@ public class Line : MonoBehaviour
 	[SerializeField]
 	private Rigidbody refRigidBody;
 
-	[SerializeField]
-	private Joint refJoint;
+	private HingeJoint refJoint;
+
+	void Awake()
+	{
+		this.refJoint = GetComponent<HingeJoint>();
+	}
 
 	public void ToRoot(Rigidbody tipPoint)
 	{
@@ -31,5 +35,12 @@ public class Line : MonoBehaviour
 		refJoint.connectedBody = other.refRigidBody;
 		refJoint.connectedAnchor = other.refTipPoint.localPosition * 1.1f;
 		refJoint.anchor = Vector3.zero;
+	}
+
+	public void Loosen()
+	{
+		var spring = this.refJoint.spring;
+		spring.spring = 0.0f;
+		this.refJoint.spring = spring;
 	}
 }

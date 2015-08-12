@@ -1514,7 +1514,7 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: .937798977
+      - time: .674823225
         functionName: OnEndCastingState
         data: 
         objectReferenceParameter: {instanceID: 0}
