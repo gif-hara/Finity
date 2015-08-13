@@ -7,28 +7,7 @@ using System.Collections;
 /// </summary>
 public class MoveTo : MonoBehaviour
 {
-	[SerializeField]
-	private Vector3 target;
-
-	[SerializeField]
-	private float delay;
-	
-	[SerializeField]
-	private float moveTime;
-
-	[SerializeField]
-	private float lookTime;
-
-	[SerializeField]
-	private string easeType;
-
 	private GameObject onCompleteTarget;
-
-	// Use this for initialization	
-	void Start ()
-	{
-		Move(target, delay, moveTime, lookTime, easeType);
-	}
 
 	void AttachOnCompleteTarget(GameObject onCompleteTarget)
 	{
