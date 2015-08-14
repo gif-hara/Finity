@@ -1308,8 +1308,8 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: .688473523
-        functionName: OnCasting
+      - time: .726535797
+        functionName: OnEndCastingState
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
