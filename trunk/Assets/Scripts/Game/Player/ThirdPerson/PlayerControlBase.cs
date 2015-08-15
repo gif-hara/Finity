@@ -10,7 +10,7 @@ public class PlayerControlBase : MonoBehaviour
 	protected ThirdPersonCharacter refCharacter;
 
 	// Use this for initialization	
-	void Start ()
+	void Awake ()
 	{
 		this.refCharacter = GetComponent<ThirdPersonCharacter>();
 	}

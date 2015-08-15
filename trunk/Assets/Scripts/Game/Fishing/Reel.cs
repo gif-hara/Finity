@@ -17,27 +17,19 @@ public class Reel : MonoBehaviour
 
 	[SerializeField]
 	private Line prefabLine;
-
-	[SerializeField]
-	private float force;
-
+	
 	private Bait bait;
 
 	private Line line;
-
-	// Update is called once per frame
-	void Update ()
-	{
-	}
 
 	public void Initialize(Bait bait)
 	{
 		this.bait = bait;
 	}
 
-	void OnChangeFishingState()
+	public void Casting(float force)
 	{
 		this.bait.transform.position = refRodTipPoint.position;
-		this.bait.Cast((refCharacter.forward + refCharacter.up).normalized, this.force);
+		this.bait.Cast((refCharacter.forward + refCharacter.up).normalized, force);
 	}
 }
