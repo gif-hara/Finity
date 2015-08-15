@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 /// <summary>
-/// .
+/// プレイヤー切替時にenabledを設定するコンポーネント.
 /// </summary>
 public class OnChangePlayerSetEnableBehaviour : MonoBehaviour
 {
