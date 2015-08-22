@@ -9,11 +9,6 @@ public class MoveTo : MonoBehaviour
 {
 	private GameObject onCompleteTarget;
 
-	void AttachOnCompleteTarget(GameObject onCompleteTarget)
-	{
-		this.onCompleteTarget = onCompleteTarget;
-	}
-
 	public void Move(Vector3 target, float delay, float moveTime, float lookTime, string easeType)
 	{
 		var hash = iTween.Hash(
@@ -28,5 +23,10 @@ public class MoveTo : MonoBehaviour
 			"oncompleteparams", this
 			);
 		iTween.MoveTo(this.gameObject, hash);
+	}
+
+	void AttachOnCompleteTarget(GameObject onCompleteTarget)
+	{
+		this.onCompleteTarget = onCompleteTarget;
 	}
 }

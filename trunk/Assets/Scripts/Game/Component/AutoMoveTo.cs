@@ -5,11 +5,9 @@ using System.Collections.Generic;
 /// <summary>
 /// .
 /// </summary>
+[RequireComponent(typeof(BoxCollider))]
 public class AutoMoveTo : MonoBehaviour
 {
-	[SerializeField]
-	private Vector3 range;
-
 	[SerializeField]
 	private float minDelay;
 
@@ -33,20 +31,17 @@ public class AutoMoveTo : MonoBehaviour
 
 	private List<MoveTo> moveToList;
 
+	private BoxCollider range;
+
 	void Start()
 	{
+		this.range = GetComponent<BoxCollider>();
 		BroadcastMessage("AttachOnCompleteTarget", gameObject);
 		this.moveToList = new List<MoveTo>(GetComponentsInChildren<MoveTo>());
 		foreach(var moveTo in moveToList)
 		{
 			Move(moveTo);
 		}
-	}
-
-	void OnDrawGizmosSelected()
-	{
-		Gizmos.matrix = this.transform.localToWorldMatrix;
-		Gizmos.DrawWireCube(Vector3.zero, range);
 	}
 
 	void OnCompleteMove(MoveTo completeMoveTo)
@@ -57,9 +52,9 @@ public class AutoMoveTo : MonoBehaviour
 	private void Move(MoveTo moveTo)
 	{
 		var target = this.transform.position;
-		target += transform.forward * (Random.Range(-range.z, range.z) * 0.5f);
-		target += transform.right * (Random.Range(-range.x, range.x) * 0.5f);
-		target += transform.up * (Random.Range(-range.y, range.y) * 0.5f);
+		target += transform.forward * (Random.Range(-range.size.z, range.size.z) * 0.5f);
+		target += transform.right * (Random.Range(-range.size.x, range.size.x) * 0.5f);
+		target += transform.up * (Random.Range(-range.size.y, range.size.y) * 0.5f);
 		var delay = Random.Range(minDelay, maxDelay);
 		var moveTime = Random.Range(minMoveTime, maxMoveTime);
 		var lookTime = Random.Range(minLookTime, maxLookTime);

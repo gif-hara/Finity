@@ -81,8 +81,6 @@ public class CastPlayerControl : PlayerControlBase
 			this.force = this.force < 0 ? 0 : this.force;
 			this.isAdd = this.force <= 0;
 		}
-
-		Debug.Log("force = " + this.force);
 	}
 
 	void OnChangeCastState()
